@@ -9,24 +9,8 @@ onMounted(async () => {
 
 </script>
 <template>
-    
     <h2>Все посты</h2>
-    <div v-if="posts">
-    <article v-for="post in posts">
-        <NuxtLink :to="`/blog/posts/${post.id}`">
-            <h3>{{ post.title }}</h3>
-        </NuxtLink>
-        <div v-if="post.tags.length != 0" class="tag_list">
-            <div v-for="tag in post.tags">
-                <NuxtLink :to="`/blog/tags/${tag}`">{{ tag }}</NuxtLink>
-            </div>
-        </div>
-        <p>{{ post.content }}...</p>
-    </article>
-    </div>
-    <div v-else>
-        No posts to show
-    </div>
+    <PostList :posts="posts"></PostList>
 </template>
 
 <style scoped>
