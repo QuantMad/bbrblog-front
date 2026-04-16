@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import type { Post } from '~/types/Post';
 
+const route = useRoute();
 const posts = ref<Array<Post>>();
+const tag = String(route.params.name);
 
 onMounted(async () => {
-    posts.value = await Blog().getPosts();
+  posts.value = await Blog().getPostsByTag(tag);
 })
 
 </script>
+
 <template>
-    
-    <h2>Все посты</h2>
-    <div v-if="posts">
+  <div v-if="posts">
     <article v-for="post in posts">
-        <NuxtLink :to="`/blog/posts/${post.id}`">
+        <NuxtLink :to="`/blog/tags/${tag}/posts/${post.id}`">
             <h3>{{ post.title }}</h3>
         </NuxtLink>
         <div v-if="post.tags.length != 0" class="tag_list">
@@ -28,15 +29,3 @@ onMounted(async () => {
         No posts to show
     </div>
 </template>
-
-<style scoped>
-.tag_list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.tag_list div {
-    padding: 0px 2px 0px 2px;
-}
-</style>

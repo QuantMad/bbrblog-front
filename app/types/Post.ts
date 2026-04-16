@@ -1,7 +1,7 @@
 export interface Post {
-  id: number
-  title: string
-  content: string
-  // tags...
-  created: string
+  id: number;
+  title: string;
+  content: string;
+  tags: Array<string>;
+  created: string;
 }
