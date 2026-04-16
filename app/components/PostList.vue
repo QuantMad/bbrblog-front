@@ -2,6 +2,7 @@
 import type { Post } from '~/types/Post';
 
 const route = useRoute();
+const router = useRouter();
 
 const props = defineProps({
     posts: Array<Post>
@@ -9,18 +10,12 @@ const props = defineProps({
 
 </script>
 <template>
-    <h1>{{ route.path }}</h1>
     <div v-if="posts">
         <article v-for="post in posts">
             <NuxtLink :to="`${route.path}/posts/${post.id}`">
                 <h3>{{ post.title }}</h3>
             </NuxtLink>
-
-            <div v-if="post.tags.length != 0" class="tag_list">
-                <div v-for="t in post.tags">
-                    <NuxtLink :to="`/blog/tags/${t}`">{{ t }}</NuxtLink>
-                </div>
-            </div>
+            <TagList :tags="post.tags"></TagList>
             <p>{{ post.content }}...</p>
         </article>
     </div>
