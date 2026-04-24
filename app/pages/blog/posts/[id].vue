@@ -1,4 +1,4 @@
 
 <template>
-  <PostViev></PostViev>
+  <PostViev :get-post="Blog().getPost"></PostViev>
 </template>

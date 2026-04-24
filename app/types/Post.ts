@@ -5,3 +5,9 @@ export interface Post {
   tags: Array<string>;
   created: string;
 }
+
+export interface DTO_PostCreate {
+  title: string;
+  content: string;
+  tags: Array<string>;
+}

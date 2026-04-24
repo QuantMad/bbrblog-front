@@ -7,9 +7,14 @@ const id = Number(route.params.id);
 
 const post = ref<Post>();
 
+const props = defineProps<{
+  getPost: (id: number) => Promise<Post>
+}>()
+
 onMounted(async () => {
-  post.value = await Blog().getPost(id);
+  post.value = await props.getPost(id);
 })
+
 </script>
 
 <template>
@@ -17,12 +22,13 @@ onMounted(async () => {
     <h1>{{ post.title }}</h1>
     <h5>{{ post.created }}</h5>
     <TagList :tags="post.tags"></TagList>
-    <div>{{ post.content }}</div>
+    <MDC :value="post.content" />
   </div>
+
   <div v-else>
     Failed to load post
   </div>
-    <button @click="router.back()">
+  <button @click="router.back()">
     ← Go back
   </button>
 </template>

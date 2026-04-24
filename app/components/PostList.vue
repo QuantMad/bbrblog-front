@@ -2,11 +2,15 @@
 import type { Post } from '~/types/Post';
 
 const route = useRoute();
-const router = useRouter();
+const posts = ref<Array<Post>>();
 
-const props = defineProps({
-    posts: Array<Post>
-});
+const props = defineProps<{
+  getPosts: () => Promise<Array<Post>>
+}>()
+
+onMounted(async () => {
+  posts.value = await props.getPosts();
+})
 
 </script>
 <template>
